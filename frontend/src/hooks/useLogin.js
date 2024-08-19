@@ -22,6 +22,7 @@ const useLogin = () => {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({ inputField, password }),
+				credentials: "include",
 			});
 
 			const data = await res.json();

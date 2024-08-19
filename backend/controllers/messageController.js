@@ -40,13 +40,17 @@ export const sendMessage = async (req, res) => {
 			});
 		}
 
-		const newMessage = await Message.create({
+		const newMessage = new Message({
 			senderID,
 			receiverID,
 			message,
 		});
 
-		await conversation.updateOne({ $push: { messages: newMessage._id } });
+		if (newMessage) {
+			conversation.messages.push(newMessage._id);
+		}
+
+		await Promise.all([conversation.save(), newMessage.save()]);
 
 		res.status(200).json({
 			message: "Message Sent Successfully",
