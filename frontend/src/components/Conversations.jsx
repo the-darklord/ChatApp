@@ -5,7 +5,7 @@ import { getRandomEmoji } from "../utils/emojis";
 const Conversations = () => {
 	const { loading, conversations } = useGetConversations();
 	return (
-		<div className="flex flex-col py-2 overflow-auto">
+		<div className="flex flex-col px-2 py-4 space-y-4 overflow-auto">
 			{conversations.map((conversation, idx) => (
 				<Conversation
 					key={conversation._id}
@@ -16,7 +16,7 @@ const Conversations = () => {
 			))}
 
 			{loading ? (
-				<span className="mx-auto loading loading-spinner"></span>
+				<span className="mx-auto text-3xl loading loading-spinner"></span>
 			) : null}
 		</div>
 	);

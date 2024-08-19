@@ -11,19 +11,23 @@ const Message = ({ message }) => {
 	const profilePic = isSender
 		? user.profilePic
 		: selectedConversation?.profilePic || "";
-	const color = isSender ? "bg-blue-500" : "bg-gray-500";
+	const shakeClass = message.shouldShake ? "shake" : "";
 
 	return (
-		<div className={`chat ${className}`}>
+		<div className={`chat ${className} mb-4`}>
 			<div className="chat-image avatar">
-				<div className="w-10 rounded-full">
-					<img alt="User profile" src={profilePic} />
+				<div className="w-12 h-12 rounded-full">
+					<img
+						alt="User profile"
+						src={profilePic}
+						className="object-cover"
+					/>
 				</div>
 			</div>
-			<div className={`chat-bubble text-white ${color} pb-2`}>
+			<div className={`chat-bubble text-white text-lg ${shakeClass} p-4`}>
 				{message.message}
 			</div>
-			<div className="flex items-center gap-1 text-xs opacity-50 chat-footer">
+			<div className="flex items-center gap-1 text-sm opacity-60 chat-footer">
 				{formattedTime}
 			</div>
 		</div>
