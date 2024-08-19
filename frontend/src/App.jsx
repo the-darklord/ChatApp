@@ -6,24 +6,24 @@ import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./contexts/AuthContext.jsx";
 
 function App() {
-	const { authUser } = useAuthContext();
+	const { user } = useAuthContext();
 	return (
-		<div className="p-4 h-screen flex items-center justify-center">
+		<div className="flex items-center justify-center h-screen p-4">
 			<Routes>
 				<Route
 					path="/"
-					element={authUser ? <Home /> : <Navigate to="/login" />}
+					element={user ? <Home /> : <Navigate to="/login" />}
 				/>
 				<Route
 					path="/login"
-					element={authUser ? <Navigate to="/" /> : <Login />}
+					element={user ? <Navigate to="/" /> : <Login />}
 				/>
 				<Route
 					path="/signup"
-					element={authUser ? <Navigate to="/" /> : <Signup />}
+					element={user ? <Navigate to="/" /> : <Signup />}
 				/>
 			</Routes>
-			<Toaster position="top-right" />
+			<Toaster />
 		</div>
 	);
 }

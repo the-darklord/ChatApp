@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { useAuthContext } from "../context/AuthContext";
+import { useAuthContext } from "../contexts/AuthContext";
 import toast from "react-hot-toast";
 
 const useLogout = () => {
 	const [loading, setLoading] = useState(false);
-	const { setAuthUser } = useAuthContext();
+	const { setUser } = useAuthContext();
 
 	const logout = async () => {
 		setLoading(true);
 		try {
-			const res = await fetch("/api/auth/logout", {
+			const res = await fetch("http://localhost:5000/api/auth/logout", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 			});
@@ -19,7 +19,7 @@ const useLogout = () => {
 			}
 
 			localStorage.removeItem("user");
-			setAuthUser(null);
+			setUser(null);
 		} catch (error) {
 			toast.error(error.message);
 		} finally {

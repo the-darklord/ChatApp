@@ -29,8 +29,8 @@ const Signup = () => {
 	};
 
 	return (
-		<div className="flex flex-col items-center justify-center min-w-96 mx-auto">
-			<div className="w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
+		<div className="flex flex-col items-center justify-center mx-auto min-w-96">
+			<div className="w-full p-6 bg-gray-400 bg-opacity-0 rounded-lg shadow-md bg-clip-padding backdrop-filter backdrop-blur-lg">
 				<h1 className="text-3xl font-semibold text-center text-gray-300">
 					Sign Up <span className="text-blue-500"> ChatApp</span>
 				</h1>
@@ -45,7 +45,7 @@ const Signup = () => {
 						<input
 							type="text"
 							placeholder="John Doe"
-							className="w-full input input-bordered h-10"
+							className="w-full h-10 input input-bordered"
 							value={inputs.fullname}
 							onChange={(e) =>
 								setInputs({
@@ -65,7 +65,7 @@ const Signup = () => {
 						<input
 							type="text"
 							placeholder="johndoe"
-							className="w-full input input-bordered h-10"
+							className="w-full h-10 input input-bordered"
 							value={inputs.username}
 							onChange={(e) =>
 								setInputs({
@@ -83,7 +83,7 @@ const Signup = () => {
 						<input
 							type="email"
 							placeholder="johndoe@gmail.com"
-							className="w-full input input-bordered h-10"
+							className="w-full h-10 input input-bordered"
 							value={inputs.email}
 							onChange={(e) =>
 								setInputs({
@@ -103,7 +103,7 @@ const Signup = () => {
 						<input
 							type="password"
 							placeholder="Enter Password"
-							className="w-full input input-bordered h-10"
+							className="w-full h-10 input input-bordered"
 							value={inputs.password}
 							onChange={(e) =>
 								setInputs({
@@ -123,7 +123,7 @@ const Signup = () => {
 						<input
 							type="password"
 							placeholder="Confirm Password"
-							className="w-full input input-bordered h-10"
+							className="w-full h-10 input input-bordered"
 							value={inputs.confirmPassword}
 							onChange={(e) =>
 								setInputs({
@@ -141,14 +141,14 @@ const Signup = () => {
 
 					<Link
 						to={"/login"}
-						className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block"
+						className="inline-block mt-2 text-sm hover:underline hover:text-blue-600"
 						href="#"
 					>
 						Already have an account?
 					</Link>
 					<div>
 						<button
-							className="btn btn-block btn-sm mt-2 border border-slate-700"
+							className="mt-2 border btn btn-block btn-sm border-slate-700"
 							disabled={loading}
 						>
 							{loading ? (

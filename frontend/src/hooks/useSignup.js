@@ -4,7 +4,7 @@ import { useAuthContext } from "../contexts/AuthContext";
 
 const useSignup = () => {
 	const [loading, setLoading] = useState(false);
-	const { setAuthUser } = useAuthContext();
+	const { setUser } = useAuthContext();
 
 	const signup = async (
 		fullname,
@@ -22,7 +22,10 @@ const useSignup = () => {
 			confirmPassword,
 			gender,
 		});
-		if (!status) return;
+		if (!status) {
+			setLoading(false);
+			return;
+		}
 
 		setLoading(true);
 
@@ -43,26 +46,23 @@ const useSignup = () => {
 			});
 
 			const data = await res.json();
-			if (data.error) {
-				throw new Error(data.error);
+
+			if (!res.ok) {
+				throw new Error(data.message || "Login failed");
 			}
 
-			if (data.success) {
-				toast.success(data.message);
-			} else {
-				toast.error(data.message);
-			}
-
+			toast.success(data.message);
 			localStorage.setItem("user", JSON.stringify(data));
-			setAuthUser(data);
+			setUser(data);
 		} catch (error) {
-			toast.error(error.message);
+			console.log("An error occurred during login", error.message);
+			toast.error(error.message || "An error occurred during login");
 		} finally {
 			setLoading(false);
 		}
-
-		return { loading, signup };
 	};
+
+	return { loading, signup };
 };
 
 const handleErrors = ({
@@ -89,7 +89,7 @@ const handleErrors = ({
 	} else if (password.length < 8) {
 		toast.error("Password must be at least 8 characters long");
 		return false;
-	} else if (gender !== "Male" && gender !== "Female") {
+	} else if (!["Male", "Female"].includes(gender)) {
 		toast.error("Gender must be Male or Female");
 		return false;
 	}
