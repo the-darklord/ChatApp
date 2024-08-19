@@ -26,7 +26,7 @@ export const login = async (req, res) => {
 			return res.status(400).json({ message: "Invalid Password" });
 		}
 
-		generateTokenAndSetCookie(user._id, res);
+		await generateTokenAndSetCookie(user._id, res);
 		res.status(201).json({
 			_id: user._id,
 			fullname: user.fullname,
@@ -92,7 +92,7 @@ export const signup = async (req, res) => {
 		});
 		if (user) {
 			await user.save();
-			generateTokenAndSetCookie(user._id, res);
+			await generateTokenAndSetCookie(user._id, res);
 			res.status(201).json({
 				_id: user._id,
 				fullname: user.fullname,
@@ -113,7 +113,7 @@ export const signup = async (req, res) => {
 
 export const logout = async (req, res) => {
 	try {
-		clearCookie(res);
+		await clearCookie(res);
 		res.status(200).json({ message: "Logged Out Successfully" });
 	} catch (error) {
 		console.log("An Error Occurred while logging out", error.message);

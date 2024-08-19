@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken";
 
-const generateTokenAndSetCookie = (userID, res) => {
+const generateTokenAndSetCookie = async (userID, res) => {
 	const token = jwt.sign({ userID }, process.env.JWT_SECRET, {
 		expiresIn: "15d",
 	});
-	res.cookie("jwt", token, {
+	await res.cookie("jwt", token, {
 		httpOnly: true,
 		sameSite: "strict",
 		secure: process.env.NODE_ENV === "production",
@@ -13,8 +13,8 @@ const generateTokenAndSetCookie = (userID, res) => {
 	});
 };
 
-const clearCookie = (res) => {
-	res.clearCookie("jwt");
+const clearCookie = async (res) => {
+	await res.clearCookie("jwt");
 };
 
 export { generateTokenAndSetCookie, clearCookie };
