@@ -1,21 +1,33 @@
+import { useAuthContext } from "../contexts/AuthContext";
+import useConversation from "../store/useConversation";
+import { extractTime } from "../utils/extractTime";
+
 const Message = ({ message }) => {
+	const { user } = useAuthContext();
+	const { selectedConversation } = useConversation();
+	const isSender = user._id === message.senderID;
+	const className = isSender ? "chat-end" : "chat-start";
+	const formattedTime = extractTime(message.createdAt);
+	const profilePic = isSender
+		? user.profilePic
+		: selectedConversation?.profilePic || "";
+	const color = isSender ? "bg-blue-500" : "bg-gray-500";
+
 	return (
-		<div className={"chat chat-end"}>
+		<div className={`chat ${className}`}>
 			<div className="chat-image avatar">
 				<div className="w-10 rounded-full">
-					<img
-						alt="Tailwind CSS chat bubble component"
-						src="https://api.lorem.space/image/face?hash=33791"
-					/>
+					<img alt="User profile" src={profilePic} />
 				</div>
 			</div>
-			<div className={"chat-bubble text-white bg-blue-500 pb-2"}>
-				Message
+			<div className={`chat-bubble text-white ${color} pb-2`}>
+				{message.message}
 			</div>
 			<div className="flex items-center gap-1 text-xs opacity-50 chat-footer">
-				Time
+				{formattedTime}
 			</div>
 		</div>
 	);
 };
+
 export default Message;
