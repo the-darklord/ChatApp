@@ -8,7 +8,7 @@ services:
         ports:
             - "27017:27017"
         volumes:
-            - ./docker/database:/data/db
+            - ./database:/data/db
         networks:
             - backend
         restart: always
@@ -33,10 +33,14 @@ services:
         build: ./backend
         env_file:
             - ./backend/.env
+        environment:
+            PORT: ${PORT}
+            MONGODB_URI: ${MONGODB_URI}
+            JWT_SECRET: ${JWT_SECRET}
+            NODE_ENV: ${NODE_ENV}
+            ORIGIN: ${ORIGIN}
         ports:
             - "5000:5000"
-        volumes:
-            - ./docker/backend:/app
         depends_on:
             - mongo
         networks:
@@ -47,10 +51,11 @@ services:
         build: ./frontend
         env_file:
             - ./frontend/.env
+        environment:
+            VITE_PORT: ${VITE_PORT}
+            VITE_BACKEND_URL: ${VITE_BACKEND_URL}
         ports:
             - "3000:3000"
-        volumes:
-            - ./docker/frontend:/app
         depends_on:
             - backend
         networks:
