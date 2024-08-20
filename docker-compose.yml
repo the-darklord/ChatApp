@@ -50,7 +50,7 @@ services:
         ports:
             - "3000:3000"
         volumes:
-            - ./docker/frontend:/usr/share/nginx/html
+            - ./docker/frontend:/app
         depends_on:
             - backend
         networks:
