@@ -6,14 +6,14 @@ const useSignup = () => {
 	const [loading, setLoading] = useState(false);
 	const { setUser } = useAuthContext();
 
-	const signup = async (
+	const signup = async ({
 		fullname,
 		username,
 		email,
 		password,
 		confirmPassword,
-		gender
-	) => {
+		gender,
+	}) => {
 		const status = handleErrors({
 			fullname,
 			username,
