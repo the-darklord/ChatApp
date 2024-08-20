@@ -30,7 +30,9 @@ services:
         restart: always
 
     backend:
-        build: ./backend
+        build:
+            context: ./backend
+            cache_from: []
         env_file:
             - ./backend/.env
         environment:
@@ -48,7 +50,9 @@ services:
         restart: always
 
     frontend:
-        build: ./frontend
+        build:
+            context: ./frontend
+            cache_from: []
         env_file:
             - ./frontend/.env
         environment:
