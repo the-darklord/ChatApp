@@ -3,6 +3,7 @@ services:
     mongo:
         image: mongo:latest
         container_name: mongo
+        hostname: mongo
         environment:
             MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
             MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
@@ -17,6 +18,7 @@ services:
     mongo-express:
         image: mongo-express:latest
         container_name: mongo-express
+        hostname: mongo-express
         environment:
             ME_CONFIG_MONGODB_SERVER: mongo
             ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_INITDB_ROOT_USERNAME}
@@ -34,6 +36,7 @@ services:
     backend:
         build: ./backend
         container_name: backend
+        hostname: backend
         env_file:
             - ./backend/.env
         ports:
@@ -47,6 +50,7 @@ services:
     frontend:
         build: ./frontend
         container_name: frontend
+        hostname: frontend
         env_file:
             - ./frontend/.env
         ports:
@@ -59,4 +63,7 @@ services:
 
 networks:
     backend:
+        name: backend
         driver: bridge
+        driver_opts:
+            com.docker.network.bridge.name: backend

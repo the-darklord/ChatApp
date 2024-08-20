@@ -15,14 +15,11 @@ export const SocketContextProvider = ({ children }) => {
 
 	useEffect(() => {
 		if (user) {
-			const socket = io(
-				`${import.meta.env.VITE_BACKEND_URL}` || "http://backend:5000",
-				{
-					query: {
-						userID: user._id,
-					},
-				}
-			);
+			const socket = io("http://localhost:5000", {
+				query: {
+					userID: user._id,
+				},
+			});
 			setSocket(socket);
 
 			socket.on("getOnlineUsers", (users) => {
